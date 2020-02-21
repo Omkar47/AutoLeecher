@@ -46,7 +46,7 @@ async def aria_start():
     aria2_daemon_start_cmd.append("--seed-time=0.5")
     aria2_daemon_start_cmd.append("--split=16")
     aria2_daemon_start_cmd.append("--uri-selector=adaptive")
-    aria2_daemon_start_cmd.append("--file-allocation=prealloc")
+    aria2_daemon_start_cmd.append("--file-allocation=falloc")
     aria2_daemon_start_cmd.append(f"--bt-stop-timeout={MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START}")
     #
     LOGGER.info(aria2_daemon_start_cmd)
