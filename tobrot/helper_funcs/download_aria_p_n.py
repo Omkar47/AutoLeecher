@@ -10,7 +10,7 @@ logging.basicConfig(
 )
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
-from pyrogram.errors import FloodWait
+
 import aria2p
 import asyncio
 import os
@@ -37,14 +37,16 @@ async def aria_start():
     # but for now, https://t.me/TrollVoiceBot?start=858
     aria2_daemon_start_cmd.append("--enable-rpc")
     aria2_daemon_start_cmd.append("--follow-torrent=mem")
-    aria2_daemon_start_cmd.append("--max-connection-per-server=10")
+    aria2_daemon_start_cmd.append("--max-connection-per-server=16")
     aria2_daemon_start_cmd.append("--min-split-size=10M")
     aria2_daemon_start_cmd.append("--rpc-listen-all=false")
     aria2_daemon_start_cmd.append(f"--rpc-listen-port={ARIA_TWO_STARTED_PORT}")
     aria2_daemon_start_cmd.append("--rpc-max-request-size=1024M")
-    aria2_daemon_start_cmd.append("--seed-ratio=0.0")
-    aria2_daemon_start_cmd.append("--seed-time=1")
-    aria2_daemon_start_cmd.append("--split=10")
+    aria2_daemon_start_cmd.append("--seed-ratio=1.0")
+    aria2_daemon_start_cmd.append("--seed-time=0.5")
+    aria2_daemon_start_cmd.append("--split=16")
+    aria2_daemon_start_cmd.append("--uri-selector=adaptive")
+    aria2_daemon_start_cmd.append("--file-allocation=prealloc")
     aria2_daemon_start_cmd.append(f"--bt-stop-timeout={MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START}")
     #
     LOGGER.info(aria2_daemon_start_cmd)
@@ -214,53 +216,29 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 msg += f"\n<code>/cancel {gid}</code>"
                 # LOGGER.info(msg)
                 if msg != previous_message:
-                    try:
-                        await event.edit(msg)
-                        previous_message = msg
-                    except FloodWait as e:
-                        time.sleep(e.x)
-
+                    await event.edit(msg)
+                    previous_message = msg
             else:
                 msg = file.error_message
-                try:
-                    await event.edit(f"`{msg}`")
-                except FloodWait as e:
-                    time.sleep(e.x)
-
+                await event.edit(f"`{msg}`")
                 return False
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await check_progress_for_dl(aria2, gid, event, previous_message)
         else:
-            try:
-                await event.edit(f"File Downloaded Successfully: `{file.name}`")
-            except FloodWait as e:
-                time.sleep(e.x)
-
+            await event.edit(f"File Downloaded Successfully: `{file.name}`")
             return True
     except Exception as e:
         LOGGER.info(str(e))
         if " not found" in str(e) or "'file'" in str(e):
-            try:
-                await event.edit("Download Canceled :\n`{}`".format(file.name))
-            except FloodWait as e:
-                time.sleep(e.x)
-
+            await event.edit("Download Canceled :\n`{}`".format(file.name))
             return False
         elif " depth exceeded" in str(e):
             file.remove(force=True)
-            try:
-                await event.edit("Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(file.name))
-            except FloodWait as e:
-                time.sleep(e.x)
-                
+            await event.edit("Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(file.name))
             return False
         else:
             LOGGER.info(str(e))
-            try:
-                await event.edit("<u>error</u> :\n`{}` \n\n#error".format(str(e)))
-            except FloodWait as e:
-                time.sleep(e.x)
-           
+            await event.edit("<u>error</u> :\n`{}` \n\n#error".format(str(e)))
             return
 # https://github.com/jaskaranSM/UniBorg/blob/6d35cf452bce1204613929d4da7530058785b6b1/stdplugins/aria.py#L136-L164
 
