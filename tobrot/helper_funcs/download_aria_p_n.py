@@ -10,7 +10,7 @@ logging.basicConfig(
 )
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
-
+from pyrogram.errors import FloodWait
 import aria2p
 import asyncio
 import os
@@ -214,29 +214,53 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 msg += f"\n<code>/cancel {gid}</code>"
                 # LOGGER.info(msg)
                 if msg != previous_message:
-                    await event.edit(msg)
-                    previous_message = msg
+                    try:
+                        await event.edit(msg)
+                        previous_message = msg
+                    except FloodWait as e:
+                        time.sleep(e.x)
+
             else:
                 msg = file.error_message
-                await event.edit(f"`{msg}`")
+                try:
+                    await event.edit(f"`{msg}`")
+                except FloodWait as e:
+                    time.sleep(e.x)
+
                 return False
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await check_progress_for_dl(aria2, gid, event, previous_message)
         else:
-            await event.edit(f"File Downloaded Successfully: `{file.name}`")
+            try:
+                await event.edit(f"File Downloaded Successfully: `{file.name}`")
+            except FloodWait as e:
+                time.sleep(e.x)
+
             return True
     except Exception as e:
         LOGGER.info(str(e))
         if " not found" in str(e) or "'file'" in str(e):
-            await event.edit("Download Canceled :\n`{}`".format(file.name))
+            try:
+                await event.edit("Download Canceled :\n`{}`".format(file.name))
+            except FloodWait as e:
+                time.sleep(e.x)
+
             return False
         elif " depth exceeded" in str(e):
             file.remove(force=True)
-            await event.edit("Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(file.name))
+            try:
+                await event.edit("Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(file.name))
+            except FloodWait as e:
+                time.sleep(e.x)
+                
             return False
         else:
             LOGGER.info(str(e))
-            await event.edit("<u>error</u> :\n`{}` \n\n#error".format(str(e)))
+            try:
+                await event.edit("<u>error</u> :\n`{}` \n\n#error".format(str(e)))
+            except FloodWait as e:
+                time.sleep(e.x)
+           
             return
 # https://github.com/jaskaranSM/UniBorg/blob/6d35cf452bce1204613929d4da7530058785b6b1/stdplugins/aria.py#L136-L164
 
