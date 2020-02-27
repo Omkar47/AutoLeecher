@@ -54,19 +54,19 @@ if __name__ == "__main__" :
     #
     incoming_message_handler = MessageHandler(
         incoming_message_f,
-        filters=Filters.command(["leech@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["leech@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_message_handler)
     #
     incoming_youtube_dl_handler = MessageHandler(
         incoming_youtube_dl_f,
-        filters=Filters.command(["ytdl@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["ytdl@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_youtube_dl_handler)
     #
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=Filters.command(["status@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["status@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(status_message_handler)
     #
@@ -96,7 +96,7 @@ if __name__ == "__main__" :
 
     help_text_handler = MessageHandler(
         help_message_f,
-        filters=Filters.command(["help@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["help@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(help_text_handler)
     #
@@ -119,13 +119,13 @@ if __name__ == "__main__" :
     #
     save_thumb_nail_handler = MessageHandler(
         save_thumb_nail,
-        filters=Filters.command(["savethumbnail@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["savethumbnail@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(save_thumb_nail_handler)
     #
     clear_thumb_nail_handler = MessageHandler(
         clear_thumb_nail,
-        filters=Filters.command(["clearthumbnail@xdl_bot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command(["clearthumbnail@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(clear_thumb_nail_handler)
     #
