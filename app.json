@@ -36,6 +36,10 @@
       "description": "should be an integer. The BOT API ID of the Telegram Group, where the Leecher should work.",
       "value": ""
     },
+    "SUDO_USERS": {
+      "description": "ADD ADMINS IDs HERE",
+      "value": ""
+    },
     "CHUNK_SIZE": {
       "description": "should be an integer",
       "value": "128",
