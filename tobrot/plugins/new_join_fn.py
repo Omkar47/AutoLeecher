@@ -49,8 +49,7 @@ async def help_msg(client, message):
     f"\n\n<code>/{YTDL_CMD}</code> : To Download ytdl Supported Sites" \
     f"\n\n<code>/{SAVE_CMD}</code> : To Save Thumbnail" \
     f"\n\n<code>/{DELETE_CMD}</code> : To Clear Thumbnail" \
-    f"\n\n<code>/{LEECH_CMD} archive</code> : To Tar Files" \
-    f"\n\n<code>/{LEECH_CMD} unzip</code> : To Unzip/Untar/Unrar Files", quote=True)
+    f"\n\n<code>/{LEECH_CMD} archive</code> : To Tar Files", quote=True)
 
 
 async def rename_message_f(client, message):
