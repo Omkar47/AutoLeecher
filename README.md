@@ -1,5 +1,12 @@
 # Telegram Torrent Leecher 🔥🤖
 
+```I HAVEN'T TESTED THIS REPO JUST RANDOML EDITED THIS 
+
+SO BUGGES ARE CONFIRM THERE MAYBE NOT REPO NOT EVEN GONNA WORK ANY MORE :[
+
+DO LET ME KNOW IF ANY BUGS AT PULL REQUESTS OR CONTACT ME AT @APDBUGS
+```
+
 A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 ## installing
@@ -7,6 +14,31 @@ A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.c
 ### The Easy Way
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+
+### The Eas(iest) Way
+
+- Install Docker by following the [official docker docs](https://docs.docker.com/engine/install/debian/)
+
+- Start docker daemon [skip if already running]:
+```sh
+dockerd
+```
+- Build Docker image:
+```sh
+docker build . -t public-leech
+```
+- Run the image:
+```sh
+docker run public-leech
+```
+
+It is not recommended to use "sudo", un-necessarily, in a GNU/Linux system.
+GNU/Linux Permissions are highly customisable, and it is generally not required to have "ROOT" permission, ~~unless you know what you are doing~~.
+You can still install all the dependencies in your system [with ROOT permissions], but please be aware of the potential issues when doing so. The installed packages may conflict with the system package manager's installed packages, which can cause trouble down the road and errors when upgrading conflicting packages.
+**You have been warned.**
+
+
 
 ### The Legacy Way
 Simply clone the repository and run the main file:
@@ -68,6 +100,27 @@ class Config(Config):
 
 * `MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START`
 
+## Variables to Edit Commands
+
+* `LEECH_CMD`
+
+* `YTDL_CMD`
+
+* `CANCEL_CMD`
+
+* `STATUS_CMD`
+
+* `LOG_CMD`
+
+* `SAVE_CMD`
+
+* `DELETE_CMD`
+
+* `UPLOAD_CMD`
+
+* `EXEC_CMD `
+
+* `HELP_CMD`
 
 ## Available Commands
 
@@ -95,7 +148,8 @@ class Config(Config):
 
 
 ## Credits, and Thanks to
-
+* [me](https://telegram.dog/APDBUGS)
+* [SPECHIDE](https://github.com/SpEcHIDe/PublicLeech)
 * [Dan Tès](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
 * [Robots](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
 * [@AjeeshNair](https://telegram.dog/AjeeshNait) for his [torrent.ajee.sh](https://torrent.ajee.sh)
