@@ -19,7 +19,20 @@ from tobrot import (
     TG_BOT_TOKEN,
     APP_ID,
     API_HASH,
-    AUTH_CHANNEL
+    AUTH_CHANNEL,
+    SUDO_USERS,
+    CANCEL_CMD,
+    LEECH_CMD,
+    YTDL_CMD,
+    STATUS_CMD,
+    STATS_CMD,
+    LOG_CMD,
+    SAVE_CMD,
+    DELETE_CMD,
+    HELP_CMD,
+    UPLOAD_CMD,
+    EXEC_CMD
+)
 )
 
 from pyrogram import Client, Filters, MessageHandler, CallbackQueryHandler
@@ -30,7 +43,8 @@ from tobrot.plugins.status_message_fn import (
     status_message_f,
     cancel_message_f,
     exec_message_f,
-    upload_document_f
+    upload_document_f,
+    upload_log_file
 )
 from tobrot.plugins.call_back_button_handler import button
 from tobrot.plugins.custom_thumbnail import (
@@ -45,7 +59,7 @@ if __name__ == "__main__" :
         os.makedirs(DOWNLOAD_LOCATION)
     #
     app = Client(
-        "LeechBot",
+        "APDLeechBot",
         bot_token=TG_BOT_TOKEN,
         api_id=APP_ID,
         api_hash=API_HASH,
@@ -54,31 +68,31 @@ if __name__ == "__main__" :
     #
     incoming_message_handler = MessageHandler(
         incoming_message_f,
-        filters=Filters.command(["leech@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{LEECH_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_message_handler)
     #
     incoming_youtube_dl_handler = MessageHandler(
         incoming_youtube_dl_f,
-        filters=Filters.command(["ytdl@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{YTDL_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_youtube_dl_handler)
     #
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=Filters.command(["status@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{STATUS_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(status_message_handler)
     #
     cancel_message_handler = MessageHandler(
         cancel_message_f,
-        filters=Filters.command(["cancel"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{CANCEL_CMD}"]) & filters.user(users=AUTH_CHANNEL)
     )
     app.add_handler(cancel_message_handler)
     #
     exec_message_handler = MessageHandler(
         exec_message_f,
-        filters=Filters.command(["exec"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{EXEC_CMD}"]) & filters.user(users=SUDO_USERS)
     )
     app.add_handler(exec_message_handler)
     #
@@ -90,15 +104,21 @@ if __name__ == "__main__" :
     #
     upload_document_handler = MessageHandler(
         upload_document_f,
-        filters=Filters.command(["upload"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{UPLOAD_CMD}"]) & filters.user(users=SUDO_USERS)
     )
     app.add_handler(upload_document_handler)
 
     help_text_handler = MessageHandler(
         help_message_f,
-        filters=Filters.command(["help@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{HELP_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(help_text_handler)
+    #
+    upload_log_handler = MessageHandler(
+        upload_log_file,
+        filters=Filters.command([f"{LOG_CMD}"]) & Filters.user(users=SUDO_USERS)
+    )
+    app.add_handler(upload_log_handler)
     #
     new_join_handler = MessageHandler(
         new_join_f,
@@ -119,13 +139,13 @@ if __name__ == "__main__" :
     #
     save_thumb_nail_handler = MessageHandler(
         save_thumb_nail,
-        filters=Filters.command(["savethumbnail@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{SAVE_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(save_thumb_nail_handler)
     #
     clear_thumb_nail_handler = MessageHandler(
         clear_thumb_nail,
-        filters=Filters.command(["clearthumbnail@romsupbot"]) & Filters.chat(chats=AUTH_CHANNEL)
+        filters=Filters.command([f"{DELETE_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(clear_thumb_nail_handler)
     #
