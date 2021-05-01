@@ -7,16 +7,14 @@
     "indian",
     "pyrogram",
     "torrent",
-    "3",
     "plugin",
     "modular",
-    "productivity",
     "youtube-dl",
     "leecher"
   ],
-  "repository": "https://github.com/SpEcHiDe/PublicLeech",
-  "success_url": "https://telegram.dog/ThankTelegram",
-  "website": "https://github.com/SpEcHiDe/PublicLeech",
+  "repository": "https://github.com/Omkar47/AutoLeecher",
+  "success_url": "https://telegram.dog/APDBugged",
+  "website": "https://github.com/Omkar47/AutoLeecher",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
@@ -67,6 +65,7 @@
   }, {
     "url": "heroku/python"
   }],
+  "stack": "container",
   "formation": {
     "worker": {
       "quantity": 1,
