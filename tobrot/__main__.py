@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
 # the logging things
 import logging
 logging.basicConfig(
@@ -14,139 +10,146 @@ LOGGER = logging.getLogger(__name__)
 
 import os
 
-from tobrot import (
-    DOWNLOAD_LOCATION,
-    TG_BOT_TOKEN,
+from apdbot import (
+    DOWNLOAD_LOC,
+    BOT_TOKEN,
     APP_ID,
     API_HASH,
-    AUTH_CHANNEL,
-    SUDO_USERS,
+    AUTH,
     CANCEL_CMD,
     LEECH_CMD,
     YTDL_CMD,
+    PYTDL_CMD,
     STATUS_CMD,
     STATS_CMD,
     LOG_CMD,
     SAVE_CMD,
-    DELETE_CMD,
+    CLEAR_CMD,
     HELP_CMD,
     UPLOAD_CMD,
     EXEC_CMD
 )
+
+from pyrogram import Client, filters
+from pyrogram.handlers import MessageHandler, CallbackQueryHandler
+
+from apdbot.plugins.incoming_msg import incoming_msg, incoming_ytdl, ytdl_list, zmhdl
+from apdbot.plugins.status_msg import (
+    status_msg,
+    cancel_msg,
+    exec_msg,
+    upload_doc,
+    upload_log_file,
+    stats_msg
 )
 
-from pyrogram import Client, Filters, MessageHandler, CallbackQueryHandler
-
-from tobrot.plugins.new_join_fn import new_join_f, help_message_f, rename_message_f
-from tobrot.plugins.incoming_message_fn import incoming_message_f, incoming_youtube_dl_f
-from tobrot.plugins.status_message_fn import (
-    status_message_f,
-    cancel_message_f,
-    exec_message_f,
-    upload_document_f,
-    upload_log_file
+from apdbot.plugins.new_join import help_msg
+from apdbot.plugins.call_back_butn_handler import button
+from apdbot.plugins.custom_thumb import (
+    save_thumb,
+    clear_thumb
 )
-from tobrot.plugins.call_back_button_handler import button
-from tobrot.plugins.custom_thumbnail import (
-    save_thumb_nail,
-    clear_thumb_nail
-)
-
 
 if __name__ == "__main__" :
     # create download directory, if not exist
-    if not os.path.isdir(DOWNLOAD_LOCATION):
-        os.makedirs(DOWNLOAD_LOCATION)
+    if not os.path.isdir(DOWNLOAD_LOC):
+        os.makedirs(DOWNLOAD_LOC)
     #
     app = Client(
-        "APDLeechBot",
-        bot_token=TG_BOT_TOKEN,
+        "APDBot",
+        bot_token=BOT_TOKEN,
         api_id=APP_ID,
         api_hash=API_HASH,
         workers=343
     )
     #
-    incoming_message_handler = MessageHandler(
-        incoming_message_f,
-        filters=Filters.command([f"{LEECH_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
+    incoming_msg_handler = MessageHandler(
+        incoming_msg,
+        filters=filters.command([f"{LEECH_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(incoming_message_handler)
+    app.add_handler(incoming_msg_handler)
     #
-    incoming_youtube_dl_handler = MessageHandler(
-        incoming_youtube_dl_f,
-        filters=Filters.command([f"{YTDL_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
+    incoming_ytdl_handler = MessageHandler(
+        incoming_ytdl,
+        filters=filters.command([f"{YTDL_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(incoming_youtube_dl_handler)
+    app.add_handler(incoming_ytdl_handler)
     #
-    status_message_handler = MessageHandler(
-        status_message_f,
-        filters=Filters.command([f"{STATUS_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
+    incoming_youtube_playlist_dl_handler = MessageHandler(
+        ytdl_list,
+        filters=filters.command([f"{PYTDL_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(status_message_handler)
+    app.add_handler(incoming_youtube_playlist_dl_handler)
     #
-    cancel_message_handler = MessageHandler(
-        cancel_message_f,
-        filters=Filters.command([f"{CANCEL_CMD}"]) & filters.user(users=AUTH_CHANNEL)
+    incoming_zmhdl_handler = MessageHandler(
+        zmhdl,
+        filters=filters.command([f"zdl"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(cancel_message_handler)
+    app.add_handler(incoming_zmhdl_handler)
     #
-    exec_message_handler = MessageHandler(
-        exec_message_f,
-        filters=Filters.command([f"{EXEC_CMD}"]) & filters.user(users=SUDO_USERS)
+    status_msg_handler = MessageHandler(
+        status_msg,
+        filters=filters.command([f"{STATUS_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(exec_message_handler)
+    app.add_handler(status_msg_handler)
     #
-    rename_message_handler = MessageHandler(
-        rename_message_f,
-        filters=Filters.command(["rename"]) & Filters.chat(chats=AUTH_CHANNEL)
+    stats_msg_handler = MessageHandler(
+        stats_msg,
+        filters=filters.command([f"{STATS_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(rename_message_handler)
+    app.add_handler(stats_msg_handler)
     #
-    upload_document_handler = MessageHandler(
-        upload_document_f,
-        filters=Filters.command([f"{UPLOAD_CMD}"]) & filters.user(users=SUDO_USERS)
+    cancel_msg_handler = MessageHandler(
+        cancel_msg,
+        filters=filters.command([f"{CANCEL_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(upload_document_handler)
-
-    help_text_handler = MessageHandler(
-        help_message_f,
-        filters=Filters.command([f"{HELP_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
+    app.add_handler(cancel_msg_handler)
+    #
+    exec_msg_handler = MessageHandler(
+        exec_msg,
+        filters=filters.command([f"{EXEC_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(help_text_handler)
+    app.add_handler(exec_msg_handler)
+    #
+    upload_doc_handler = MessageHandler(
+        upload_doc,
+        filters=filters.command([f"{UPLOAD_CMD}"]) & filters.chat(chats=AUTH)
+    )
+    app.add_handler(upload_doc_handler)
+    #
+    call_back_butn_handler = CallbackQueryHandler(
+        button
+    )
+    app.add_handler(call_back_butn_handler)
+    #
+    save_thumb_handler = MessageHandler(
+        save_thumb,
+        filters=filters.command([f"{SAVE_CMD}"]) & filters.chat(chats=AUTH)
+    )
+    app.add_handler(save_thumb_handler)
+    #
+    clear_thumb_handler = MessageHandler(
+        clear_thumb,
+        filters=filters.command([f"{CLEAR_CMD}"]) & filters.chat(chats=AUTH)
+    )
+    app.add_handler(clear_thumb_handler)
     #
     upload_log_handler = MessageHandler(
         upload_log_file,
-        filters=Filters.command([f"{LOG_CMD}"]) & Filters.user(users=SUDO_USERS)
+        filters=filters.command([f"{LOG_CMD}"]) & filters.chat(chats=AUTH)
     )
     app.add_handler(upload_log_handler)
     #
-    new_join_handler = MessageHandler(
-        new_join_f,
-        filters=~Filters.chat(chats=AUTH_CHANNEL)
+    help_msg_handler = MessageHandler(
+        help_msg,
+        filters=filters.command([f"{HELP_CMD}"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(new_join_handler)
+    app.add_handler(help_msg_handler)
     #
-    group_new_join_handler = MessageHandler(
-        help_message_f,
-        filters=Filters.chat(chats=AUTH_CHANNEL) & Filters.new_chat_members
+    help_msg_handler = MessageHandler(
+        help_msg,
+        filters=filters.command(["help"]) & filters.chat(chats=AUTH)
     )
-    app.add_handler(group_new_join_handler)
-    #
-    call_back_button_handler = CallbackQueryHandler(
-        button
-    )
-    app.add_handler(call_back_button_handler)
-    #
-    save_thumb_nail_handler = MessageHandler(
-        save_thumb_nail,
-        filters=Filters.command([f"{SAVE_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
-    )
-    app.add_handler(save_thumb_nail_handler)
-    #
-    clear_thumb_nail_handler = MessageHandler(
-        clear_thumb_nail,
-        filters=Filters.command([f"{DELETE_CMD}"]) & Filters.chat(chats=AUTH_CHANNEL)
-    )
-    app.add_handler(clear_thumb_nail_handler)
+    app.add_handler(help_msg_handler)
     #
     app.run()
