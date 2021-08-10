@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
-# the logging things
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -11,6 +6,11 @@ logger = logging.getLogger(__name__)
 import math
 import os
 import time
+
+from apdbot import (
+    FINISHED_PROGRESS_STR,
+    UN_FINISHED_PROGRESS_STR
+)
 
 
 async def progress_for_pyrogram(
@@ -34,8 +34,8 @@ async def progress_for_pyrogram(
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
         progress = "[{0}{1}] \nP: {2}%\n".format(
-            ''.join(["█" for i in range(math.floor(percentage / 5))]),
-            ''.join(["░" for i in range(20 - math.floor(percentage / 5))]),
+            ''.join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),
+            ''.join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2))
 
         tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
@@ -46,12 +46,20 @@ async def progress_for_pyrogram(
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
         try:
-            await message.edit(
-                text="{}\n {}".format(
-                    ud_type,
-                    tmp
+            if not message.photo:
+                await message.edit_text(
+                    text="{}\n {}".format(
+                        ud_type,
+                        tmp
+                    )
                 )
-            )
+            else:
+                await message.edit_caption(
+                    caption="{}\n {}".format(
+                        ud_type,
+                        tmp
+                    )
+                )
         except:
             pass
 
@@ -68,6 +76,7 @@ def humanbytes(size):
         size /= power
         n += 1
     return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
+
 
 def TimeFormatterr(seconds: int) -> str:
     result = ""
@@ -87,6 +96,7 @@ def TimeFormatterr(seconds: int) -> str:
             result += f" {v_m} {age} "
     return result
 
+
 def TimeFormatter(milliseconds: int) -> str:
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
@@ -98,3 +108,4 @@ def TimeFormatter(milliseconds: int) -> str:
         ((str(seconds) + "s, ") if seconds else "") + \
         ((str(milliseconds) + "ms, ") if milliseconds else "")
     return tmp[:-2]
+ 

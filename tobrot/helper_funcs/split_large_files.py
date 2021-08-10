@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
-# the logging things
 import logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -18,8 +13,8 @@ import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
-from tobrot import (
-    MAX_TG_SPLIT_FILE_SIZE
+from apdbot import (
+    MAX_SIZE_TO_SPLIT
 )
 
 
@@ -32,8 +27,10 @@ async def split_large_files(input_file):
     # create download directory, if not exist
     if not os.path.isdir(new_working_directory):
         os.makedirs(new_working_directory)
-    if input_file.upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV")):
-    # if False:
+    # if input_file.upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV")):
+    """The below logic is DERPed, so removing temporarily
+    """
+    if False:
         # handle video / audio files here
         metadata = extractMetadata(createParser(input_file))
         total_duration = 0
@@ -43,7 +40,7 @@ async def split_large_files(input_file):
         LOGGER.info(total_duration)
         total_file_size = os.path.getsize(input_file)
         LOGGER.info(total_file_size)
-        minimum_duration = (total_duration / total_file_size) * (MAX_TG_SPLIT_FILE_SIZE)
+        minimum_duration = (total_duration / total_file_size) * (MAX_SIZE_TO_SPLIT)
         LOGGER.info(minimum_duration)
         # END: proprietary
         start_time = 0
@@ -83,7 +80,7 @@ async def split_large_files(input_file):
             "split",
             "--numeric-suffixes=1",
             "--suffix-length=5",
-            f"--bytes={MAX_TG_SPLIT_FILE_SIZE}",
+            f"--bytes={MAX_SIZE_TO_SPLIT}",
             input_file,
             o_d_t
         ]

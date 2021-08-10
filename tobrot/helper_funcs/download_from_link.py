@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
-# the logging things
 import logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -17,13 +12,13 @@ import time
 
 import os
 
-from tobrot import (
-    DOWNLOAD_LOCATION
+from apdbot import (
+    DOWNLOAD_LOC
 )
 
 
 async def request_download(url, file_name, r_user_id):
-    directory_path = os.path.join(DOWNLOAD_LOCATION, str(r_user_id), str(time.time()))
+    directory_path = os.path.join(DOWNLOAD_LOC, str(r_user_id), str(time.time()))
     # create download directory, if not exist
     if not os.path.isdir(directory_path):
         os.makedirs(directory_path)

@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
-# the logging things
 import logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -13,7 +8,7 @@ LOGGER = logging.getLogger(__name__)
 
 import os
 
-from tobrot import (
+from apdbot import (
     REAL_DEBRID_KEY
 )
 
