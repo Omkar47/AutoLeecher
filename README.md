@@ -1,13 +1,7 @@
 # Telegram Torrent Leecher 🔥🤖
 
 ```
-I HAVEN'T TESTED THIS REPO JUST RANDOM EDITED THIS.
-
-SO BUGGES ARE CONFIRM.
-THERE MAYBE NOT REPO NOT EVEN GONNA WORK ANY MORE :[
-
-DO LET ME KNOW IF ANY BUGS AT PULL REQUESTS.
-CONTACT ME AT @APDBUGS
+TESTED REPO WORKING FINE FOR ME ABUSE=BAN ON HEROKU...
 ```
 
 A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.com/pyrogram/pyrogram)
