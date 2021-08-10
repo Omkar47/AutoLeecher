@@ -47,18 +47,18 @@ You can still install all the dependencies in your system [with ROOT permissions
 Simply clone the repository and run the main file:
 
 ```sh
-git clone https://github.com/SpEcHiDe/PublicLeech.git
-cd PublicLeech
+git clone https://github.com/Omkar47/AutoLeecher.git
+cd AutoLeecher
 virtualenv -p /usr/bin/python3 venv
 . ./venv/bin/activate
 pip install -r requirements.txt
 # <Create config.py appropriately>
-python3 -m tobrot
+python3 -m apdbot
 ```
 
-### an example config.py 👇
+### an example conf.py 👇
 ```py
-from tobrot.sample_config import Config
+from apdbot.sample_con import Config
 
 class Config(Config):
   TG_BOT_TOKEN = ""
@@ -117,7 +117,7 @@ class Config(Config):
 
 * `SAVE_CMD`
 
-* `DELETE_CMD`
+* `CLEAR_CMD`
 
 * `UPLOAD_CMD`
 
