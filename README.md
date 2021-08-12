@@ -65,37 +65,43 @@ class Config(Config):
 
 ##### Mandatory Variables
 
-* `TG_BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
+* `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 
 * `APP_ID`
 * `API_HASH`: Get these two values from [my.telegram.org/apps](https://my.telegram.org/apps).
   * N.B.: if Telegram is blocked by your ISP, try our [Telegram bot](https://telegram.dog/UseTGXBot) to get the IDs.
 
-* `AUTH_CHANNEL`: Create a Super Group in Telegram, add `@GoogleIMGBot` to the group, and send /id in the chat, to get this value.
+* `AUTH`: Create a Super Group in Telegram, add `@GoogleIMGBot` to the group, and send /id in the chat, to get this value.
 
 ##### Optional Configuration Variables
 
-* `DOWNLOAD_LOCATION`
+* `DOWNLOAD_LOC`
 
-* `MAX_FILE_SIZE`
+* `MAX_SIZE`
 
-* `TG_MAX_FILE_SIZE`
+* `TG_MAX_SIZE`
 
-* `FREE_USER_MAX_FILE_SIZE`
+* `FREE_UZR_MAX_SIZE`
 
-* `MAX_TG_SPLIT_FILE_SIZE`
+* `MAX_SIZE_TO_SPLIT`
 
 * `CHUNK_SIZE`
 
 * `MAX_MESSAGE_LENGTH`
 
-* `PROCESS_MAX_TIMEOUT`
+* `PROCESS_TIMEOUT`
 
-* `ARIA_TWO_STARTED_PORT`
+* `ARIA_STARTED_PORT`
 
-* `EDIT_SLEEP_TIME_OUT`
+* `EDIT_SLEEP_TIME`
 
-* `MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START`
+* `MAX_TIME_TO_WAIT_FOR_START`
+
+* `FINISHED_PROGRESS_STR`
+
+* `UN_FINISHED_PROGRESS_STR`
+
+* `CUSTOM_NAME`
 
 ## Variables to Edit Commands
 
@@ -127,6 +133,8 @@ class Config(Config):
 
 * `/leech archive`: This command should be used as reply to a magnetic link, a torrent link, or a direct link. [This command will create a .tar.gz file of the output directory, and send the files in the chat, splited into PARTS of 1024MiB each, due to Telegram limitations]
 
+* `/leech unzip`: This command should be used as reply to a magnetic link, a torrent link, or a direct link. [This command will Unzip the RAR, TAR, ZIP Files]
+
 
 ## How to Use?
 
@@ -145,7 +153,7 @@ class Config(Config):
 
 
 ## Credits, and Thanks to
-* [me](https://telegram.dog/APDBUGS)
+* [Me](https://telegram.dog/APDBUGS)
 * [SPECHIDE](https://github.com/SpEcHIDe/PublicLeech)
 * [Dan Tès](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
 * [Robots](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
