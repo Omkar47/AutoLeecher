@@ -1,7 +1,7 @@
 # Telegram Torrent Leecher 🔥🤖
 
 ```
-TESTED REPO WORKING FINE FOR ME ABUSE=BAN ON HEROKU...
+TESTED REPO WORKING FINE FOR ME ABUSE=BAN ON Her*ku...
 ```
 
 A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.com/pyrogram/pyrogram)
@@ -9,6 +9,8 @@ A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.c
 ## installing
 
 ### The Easy Way
+
+Do Not Abuse 🥺, Better Use Public Leech Groups
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -30,11 +32,7 @@ docker build . -t public-leech
 docker run public-leech
 ```
 
-It is not recommended to use "sudo", un-necessarily, in a GNU/Linux system.
-GNU/Linux Permissions are highly customisable, and it is generally not required to have "ROOT" permission, ~~unless you know what you are doing~~.
-You can still install all the dependencies in your system [with ROOT permissions], but please be aware of the potential issues when doing so. The installed packages may conflict with the system package manager's installed packages, which can cause trouble down the road and errors when upgrading conflicting packages.
-**You have been warned.**
-
+IF You want to Use this Bot Use in Closed Supergroup Avoid Giving Access to Untrusted Personal.
 
 
 ### The Legacy Way
@@ -46,19 +44,19 @@ cd AutoLeecher
 virtualenv -p /usr/bin/python3 venv
 . ./venv/bin/activate
 pip install -r requirements.txt
-# <Create config.py appropriately>
+# <Create conf.py appropriately>
 python3 -m apdbot
 ```
 
-### an example conf.py 👇
+### an example for creating conf.py 👇
 ```py
 from apdbot.sample_con import Config
 
 class Config(Config):
-  TG_BOT_TOKEN = ""
+  BOT_TOKEN = ""
   APP_ID = 6
   API_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"
-  AUTH_CHANNEL = -1001234567890
+  AUTH = [-1001234567890, -1001234567891]
 ```
 
 ### Variable Explanations
@@ -129,12 +127,13 @@ class Config(Config):
 
 * `/ytdl`: This command should be used as reply to a [supported link](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
+* `/pytdl`: This command should be used as reply to a youtube playlist
+
 * `/leech`: This command should be used as reply to a magnetic link, a torrent link, or a direct link. [this command will SPAM the chat and send the downloads a seperate files, if there is more than one file, in the specified torrent]
 
 * `/leech archive`: This command should be used as reply to a magnetic link, a torrent link, or a direct link. [This command will create a .tar.gz file of the output directory, and send the files in the chat, splited into PARTS of 1024MiB each, due to Telegram limitations]
 
 * `/leech unzip`: This command should be used as reply to a magnetic link, a torrent link, or a direct link. [This command will Unzip the RAR, TAR, ZIP Files]
-
 
 ## How to Use?
 
