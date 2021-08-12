@@ -28,16 +28,12 @@
       "description": "Get this value from https://my.telegram.org",
       "value": ""
     },
-    "TG_BOT_TOKEN": {
+    "BOT_TOKEN": {
       "description": "get this value from @BotFather",
       "value": ""
     },
-    "AUTH_CHANNEL": {
+    "AUTH": {
       "description": "should be an integer. The BOT API ID of the Telegram Group, where the Leecher should work.",
-      "value": ""
-    },
-    "SUDO_USERS": {
-      "description": "ADD ADMINS IDs HERE",
       "value": ""
     },
     "CHUNK_SIZE": {
@@ -45,18 +41,62 @@
       "value": "128",
       "required": false
     },
-    "ARIA_TWO_STARTED_PORT": {
+    "ARIA_STARTED_PORT": {
       "description": "should be an integer. The port on which aria2c daemon must start, and keep listening.",
       "value": "6800",
       "required": false
     },
-    "EDIT_SLEEP_TIME_OUT": {
+    "EDIT_SLEEP_TIME": {
       "description": "should be an integer. Number of seconds to wait before editing a message.",
-      "value": "1",
+      "value": "10",
       "required": false
     },
-    "MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START": {
+    "MAX_TIME_TO_WAIT_FOR_START": {
       "description": "should be an integer. Number of seconds to wait before cancelling a torrent.",
+      "required": false
+    },
+    "LEECH_CMD": {
+      "description": "add Leech Command.",
+      "required": false
+    },
+    "YTDL_CMD": {
+      "description": "add Yt-dl Leech Command.",
+      "required": false
+    },
+    "PYTDL_CMD": {
+      "description": "add Playlist Leech Command.",
+      "required": false
+    },
+    "CANCEL_CMD": {
+      "description": "add Cancel Leech Command.",
+      "required": false
+    },
+    "STATUS_CMD": {
+      "description": "add Status Command.",
+      "required": false
+    },
+    "STATS_CMD": {
+      "description": "add Stats Command.",
+      "required": false
+    },
+    "SAVE_CMD": {
+      "description": "add Save Thumbnail Command.",
+      "required": false
+    },
+    "CLEAR_CMD": {
+      "description": "add Clear Thumbnail Command.",
+      "required": false
+    },
+    "UPLOAD_CMD": {
+      "description": "add Upload Files Command.",
+      "required": false
+    },
+    "EXEC_CMD": {
+      "description": "add Executors Command.",
+      "required": false
+    },
+    "HELP_CMD": {
+      "description": "add Help Message Command.",
       "required": false
     }
   },
